@@ -4,23 +4,21 @@ public class Stack<T> {
     Object[] backingArr;
     private int size = 0;
     private final int max;
-    private int top = 0;
-    private int insertAt = 0;
+    private int top = -1;
 
     private void decreaseFields() {
-        if (top > 0) {
+        if (top > -1) {
             top--;
         }
 
         if (size > 0) {
             size--;
-            insertAt--;
         }
     }
 
     public Stack(int size) {
         this.max = size;
-        backingArr = (T[]) new Object[size];
+        backingArr = new Object[size];
     }
 
     public Stack() {
@@ -29,9 +27,8 @@ public class Stack<T> {
 
     public void push(final T object) throws Exception {
         if (top + 1 < max) {
-            backingArr[insertAt] = object;
-            top = insertAt;
-            insertAt++;
+            backingArr[top + 1] = object;
+            top++;
             size++;
         } else {
             throw new StackOverflowError();
@@ -43,7 +40,7 @@ public class Stack<T> {
     }
 
     public T peek() {
-        if (backingArr[top] != null) {
+        if (top > -1 && backingArr[top] != null) {
             return (T) backingArr[top];
         }
         throw new EmptyStackException();
@@ -51,12 +48,21 @@ public class Stack<T> {
     }
 
     public T pop() {
-        if (backingArr[top] != null) {
+        if (top > -1 && backingArr[top] != null) {
             var temp = backingArr[top];
             backingArr[top] = null;
             this.decreaseFields();
             return (T) temp;
         }
         throw new EmptyStackException();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder wordObjs = new StringBuilder();
+        for (var obj : backingArr) {
+            wordObjs.append(obj);
+        }
+        return wordObjs.toString();
     }
 }
