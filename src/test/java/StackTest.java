@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.EmptyStackException;
 
 import org.junit.jupiter.api.Test;
@@ -63,6 +62,23 @@ public class StackTest {
     public void popWhenEmptyTest() {
         Stack<String> stack = new Stack<>();
         assertThrows(EmptyStackException.class, stack::pop);
+    }
+
+    @Test
+    public void toStringTest() throws Exception {
+        Stack<String> stack = new Stack<>();
+        stack.push("cat");
+        stack.push("cat");
+        assertEquals("cat, cat",stack.toString());
+
+    }
+
+    @Test
+    public void multipleTypesTest() throws Exception{
+        Stack<Object> stack = new Stack<>();
+        stack.push("cat");
+        stack.push(2);
+        assertEquals("cat, 2", stack.toString());
     }
 
 }

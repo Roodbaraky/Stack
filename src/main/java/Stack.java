@@ -60,8 +60,14 @@ public class Stack<T> {
     @Override
     public String toString() {
         StringBuilder wordObjs = new StringBuilder();
-        for (var obj : backingArr) {
-            wordObjs.append(obj);
+        for (var i = 0; i < backingArr.length; i++) {
+            var obj = backingArr[i];
+            if (obj != null) {
+                wordObjs.append(obj);
+                if (i + 1 != backingArr.length && backingArr[i + 1] != null) {
+                    wordObjs.append(", ");
+                }
+            }
         }
         return wordObjs.toString();
     }
