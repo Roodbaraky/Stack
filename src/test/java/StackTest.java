@@ -1,4 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.EmptyStackException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,22 +22,38 @@ public class StackTest {
     //        System.out.println("Stack size after pop is: " + stack.size());
     //    }
     @Test
-    public void pushTest() {
+    public void pushTest() throws StackOverflowError, Exception {
         Stack<String> stack = new Stack<>();
         stack.push("cat");
-        assertEquals(1,stack.size());
-
+        assertEquals(1, stack.size());
     }
 
     @Test
-    public void peekTest() {
+    public void pushWhenFullTest() throws StackOverflowError, Exception {
+        Stack<String> stack = new Stack<>();
+        stack.push("cat");
+        stack.push("cat");
+        stack.push("cat");
+        stack.push("cat");
+        stack.push("cat");
+        assertThrows(StackOverflowError.class, () -> stack.push("cat"));
+    }
+
+    @Test
+    public void peekTest() throws Exception {
         Stack<String> stack = new Stack<>();
         stack.push("cat");
         assertEquals("cat", stack.peek());
     }
 
     @Test
-    public void sizeTest() {
+    public void peekWhenEmptyTest() {
+        Stack<String> stack = new Stack<>();
+        assertThrows(EmptyStackException.class, stack::peek);
+    }
+
+    @Test
+    public void sizeTest() throws Exception {
         Stack<String> stack = new Stack<>();
         stack.push("cat");
         assertEquals(1, stack.size());
@@ -43,12 +62,19 @@ public class StackTest {
     }
 
     @Test
-    public void popTest() {
+    public void popTest() throws Exception {
         Stack<String> stack = new Stack<>();
+        stack.push("cat");
         stack.push("cat");
         var returned = stack.pop();
         assertEquals("cat", returned);
-        assertEquals(0,stack.size());
+        assertEquals(1, stack.size());
+    }
+
+    @Test
+    public void popWhenEmptyTest() {
+        Stack<String> stack = new Stack<>();
+        assertThrows(EmptyStackException.class, stack::pop);
     }
 
 }
