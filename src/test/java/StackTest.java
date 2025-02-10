@@ -9,18 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class StackTest {
-    //    public static void main(String[] args) {
-    //        Stack<String> stack = new Stack<>();
-    //        stack.push("one");
-    //        stack.push("two");
-    //        stack.push("three");
-    //
-    //        System.out.println("Top element is: " + stack.peek());
-    //        System.out.println("Stack size is: " + stack.size());
-    //
-    //        System.out.println("Popped element is: " + stack.pop());
-    //        System.out.println("Stack size after pop is: " + stack.size());
-    //    }
     @Test
     public void pushTest() throws StackOverflowError, Exception {
         Stack<String> stack = new Stack<>();
